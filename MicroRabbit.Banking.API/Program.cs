@@ -1,6 +1,7 @@
-using MicroRabbit.Banking.Data.Context;
+using MicroRabbit.Banking.SQLData.Context;
 using MicroRabbit.Infra.IoC;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +14,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BankingDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BankingDbContecxt")));
 
-RegisterServices(builder.Services);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-void RegisterServices(IServiceCollection services)
-{
-    DependencyContainer.ResisterServices(services);
-}
+DependencyContainer.ResisterServices(builder.Services);
 
 var app = builder.Build();
 

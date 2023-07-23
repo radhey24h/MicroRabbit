@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroRabbit.Banking.Data.Context
+namespace MicroRabbit.Banking.SQLData.Context
 {
     public class BankingDBContext: DbContext
     {
