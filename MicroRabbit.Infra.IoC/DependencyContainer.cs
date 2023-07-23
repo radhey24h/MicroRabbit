@@ -1,5 +1,6 @@
 ﻿using MicroRabbit.Banking.Application.Interfaces;
 using MicroRabbit.Banking.Application.Services;
+using MicroRabbit.Banking.Domain.Interfaces;
 using MicroRabbit.Banking.SQLData.Context;
 using MicroRabbit.Banking.SQLData.Repository;
 using MicroRabbit.Domain.Core.Bus;
@@ -20,7 +21,7 @@ namespace MicroRabbit.Infra.IoC
             services.AddTransient<IAccountService, AccountService>();
 
             //Data
-            services.AddTransient<AccountRepository, AccountRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<BankingDBContext>();
         }
     }
