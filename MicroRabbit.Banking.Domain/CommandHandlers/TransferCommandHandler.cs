@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace MicroRabbit.Banking.Domain.CommandHandlers
 {
-    /**
-     * Transfer Command Handler class
-     * 
-     * @author D. P. Edwards
-     * @license MIT
-     * @version 1.0
-     */ 
     public class TransferCommandHandler : IRequestHandler<CreateTransferCommand, bool>
     {
         private readonly IEventBus _bus;

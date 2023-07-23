@@ -2,13 +2,6 @@
 
 namespace MicroRabbit.Banking.Domain.Commands
 {
-    /**
-     * Transfer Command class
-     * 
-     * @author D. P. Edwards
-     * @license MIT
-     * @version 1.0
-     */ 
     public class TransferCommand : Command
     {
         public int From { get; protected set; }

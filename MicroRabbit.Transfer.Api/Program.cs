@@ -1,5 +1,8 @@
-using MicroRabbit.Banking.SQLData.Context;
+using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Infra.IoC;
+using MicroRabbit.Transfer.Domain.EventHandlers;
+using MicroRabbit.Transfer.Domain.Events;
+using MicroRabbit.TransferData.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -12,11 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<BankingDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BankingDBContecxt")));
+builder.Services.AddDbContext<TransferDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TransferDBContecxt")));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 DependencyContainer.ResisterServices(builder.Services);
+
 
 var app = builder.Build();
 
@@ -26,6 +30,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+eventBus.Subscribe<TransferCreatedEvent, TransferEventHandler>();
 
 app.UseHttpsRedirection();
 
